@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+#include <algorithm> 
 using namespace std;
 
 
@@ -45,7 +46,7 @@ void P158B(){
     */
    int group_n = 0;
    cin >> group_n;
-   
+
    vector<int> group;
    int taxi_n=0;
 
@@ -53,12 +54,19 @@ void P158B(){
    {
         int member_n = 0;
         cin>> member_n;
-        group.push_back(member_n);
+        
+        if(member_n==4){
+            taxi_n++;
+        }else{
+         group.push_back(member_n);
+        }
    }
-
-   
-
+   sort(group.begin(),group.end());
 }
+//25000
+//7000
+//32000 
+//저스트스캔
 
 
 int main(){
