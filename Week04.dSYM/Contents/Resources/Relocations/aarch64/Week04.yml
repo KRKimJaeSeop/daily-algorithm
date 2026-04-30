@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/kjs/vscode/AlgorithmEx/Week04'
+relocations:     []
+...
