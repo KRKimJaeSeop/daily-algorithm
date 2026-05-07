@@ -44,7 +44,7 @@ void P339B()
     int n = 0;
     int m = 0;
 
-    int answer = 0;
+    long long answer = 0;
     std::queue<int> q;
     std::cin >> n >> m;
 
@@ -57,7 +57,8 @@ void P339B()
         q.push(push);
     }
 
-    int i = 1;
+    int i = q.front();
+    answer = i - 1;
     // 작업이 남아있는동안 반복한다.
     while (!q.empty())
     {
@@ -70,18 +71,26 @@ void P339B()
         if (q.empty())
             continue;
 
+        // 이제 한걸음씩 가는게 아닌, 다음꺼까지 남은걸 계산해서 한번에 넘기기.
+        // 이번업무과 다음업무 사이의 dStep임.
+        long long dStep = q.front() - i;
+        if (dStep < 0)
+            dStep = n + dStep;
+
         // 한걸음 이동했음
-        answer++;
-        i++;
+        answer += dStep;
+        i += dStep;
         if (i > n)
-            i = 1;
+        {
+            i -= n;
+        }
     }
     std::cout << answer;
 }
 
 int main()
 {
-    //std::cout << "======MayWeek01======" << "\n";
+    // std::cout << "======MayWeek01======" << "\n";
     P339B();
     return 0;
 }
