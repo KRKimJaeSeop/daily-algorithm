@@ -88,9 +88,40 @@ void P339B()
     std::cout << answer;
 }
 
+// 정중앙으로 이동하기위한 최소 이동 횟수
+void P263A()
+{
+
+    // 25번 입력받고,
+    int row_i = -1;
+    int col_i = -1;
+
+    int step = 0;
+
+    for (int row = 0; row < 5; row++)
+    {
+        for (int col = 0; col < 5; col++)
+        {
+            int input = 0;
+            std::cin >> input;
+            if (input == 1)
+            {
+                row_i = row;
+                col_i = col;
+            }
+        }
+    }
+    
+    step = abs(row_i-2);
+    step += abs(col_i-2);
+
+    std::cout<<step;
+    
+    
+}
+
 int main()
 {
-    // std::cout << "======MayWeek01======" << "\n";
-    P339B();
+    P263A();
     return 0;
 }
