@@ -111,17 +111,74 @@ void P263A()
             }
         }
     }
-    
-    step = abs(row_i-2);
-    step += abs(col_i-2);
 
-    std::cout<<step;
-    
-    
+    step = abs(row_i - 2);
+    step += abs(col_i - 2);
+
+    std::cout << step;
+}
+
+/*
+5              ← 더미 개수 n
+2 7 3 4 9      ← 각 더미의 벌레 수 n개
+3              ← 쿼리 개수 m
+1 15 19        ← 질문할 벌레 번호 m개
+*/
+void P474B()
+{
+    // 더미개수
+    int dummy_n = 0;
+    // 더미별 벌레 수 입력받기
+    std::cin >> dummy_n;
+
+    int dummies[dummy_n];
+
+    int sum[dummy_n];
+    for (int i = 0; i < dummy_n; i++)
+    {
+        sum[i] = 0;
+        // 더미 입력받기
+        std::cin >> dummies[i];
+
+        // 누적 합 계산
+        if (i == 0)
+            sum[i] = dummies[i];
+        else
+            sum[i] = sum[i - 1] + dummies[i];
+    }
+
+    // 쿼리 개수
+    int query_n = 0;
+    std::cin >> query_n;
+
+    // 질문할 벌레 번호 입력받기
+    int queries[query_n];
+
+    for (int i = 0; i < query_n; i++)
+    {
+        std::cin >> queries[i];
+    }
+
+    // 질문할 벌레 번호 에 대해서, 해당 벌레가 몇번째 더미에 있는지 계산하기.
+    for (int i = 0; i < query_n; i++)
+    {
+
+        // for (int j = 0; j < dummy_n; j++)
+        // {
+        //     if (sum[j] >= queries[i])
+        //     {
+        //         std::cout << j + 1<<"\n";
+        //         break;
+        //     }
+        // }
+        auto it = std::lower_bound(sum, sum + dummy_n, queries[i]);
+        int idx = it - sum;
+        std::cout << idx + 1 << "\n";
+    }
 }
 
 int main()
 {
-    P263A();
+    P474B();
     return 0;
 }
