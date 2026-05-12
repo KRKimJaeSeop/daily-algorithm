@@ -177,8 +177,43 @@ void P474B()
     }
 }
 
+// 길이가 l , 가로등 수가 n.
+// 가로등의 위치가 정해져 있을 때, 전체를 밝히려면 갖춰야하는 최소 밝기
+void P492B()
+{
+    // n,l입력 받기
+    long long n = 0;
+    long long l = 0;
+    std::cin >> n >> l;
+
+    long long lamps[n];
+    for (int i = 0; i < n; i++)
+    {
+        std::cin >> lamps[i];
+    }
+    std::sort(lamps, lamps + n);
+
+    double diff = 0;
+    for (int i = 0; i < n; i++)
+    {
+        double currentDiff = 0;
+        if (i == 0)
+            currentDiff = lamps[0];
+        else
+            currentDiff = (lamps[i] - lamps[i - 1]) / 2.0;
+
+        if (i == n - 1)
+            diff = std::max(diff, (double)(l - lamps[n - 1]));
+
+        if (currentDiff > diff)
+            diff = currentDiff;
+    }
+
+    printf("%.10f\n", diff);
+}
+
 int main()
 {
-    P474B();
+    P492B();
     return 0;
 }
