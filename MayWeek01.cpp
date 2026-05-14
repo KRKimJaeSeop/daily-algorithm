@@ -212,8 +212,103 @@ void P492B()
     printf("%.10f\n", diff);
 }
 
+// n개의 팀 참가
+// 색의 종류가 홈 x_i , 어웨이 y_i
+// void P432B()
+// {
+//     int n = 0;
+//     std::cin >> n;
+
+//     // n번째 팀의 홈킷 색깔
+//     int home[n];
+//     // n번째 팀의 어웨이킷 색깔
+//     int away[n];
+
+//     // n팀의 홈입은 횟수, 어웨이 입은 횟수
+//     int ansewr_home[n];
+//     int answer_away[n];
+
+//     std::string answer = "";
+
+//     for (int i = 0; i < n; i++)
+//     {
+//         std::cin >> home[i] >> away[i];
+//         ansewr_home[i] = 0;
+//         answer_away[i] = 0;
+//     }
+//     // 입력 끝. 모든팀이 서로 경기를 치른다. 이중포문?
+//     // 만약 홈과 어웨이의 색이 같다면 어웨이도 홈을 입는다.
+//     for (int i = 0; i < n; i++)
+//     {
+//         for (int j = i + 1; j < n; j++)
+//         {
+//             // std::cout << i << "팀과" << j << "팀의 경기" << "\n";
+
+//             ansewr_home[i]++;
+//             ansewr_home[j]++;
+
+//             if (away[i] == home[j])
+//             {
+//                 ansewr_home[i]++;
+//             }
+//             else
+//             {
+//                 answer_away[i]++;
+//             }
+
+//             if (away[j] == home[i])
+//             {
+//                 ansewr_home[j]++;
+//             }
+//             else
+//             {
+//                 answer_away[j]++;
+//             }
+//         }
+//         answer += std::to_string(ansewr_home[i]);
+//         answer += ' ';
+//         answer += (std::to_string(answer_away[i]) + "\n");
+//     }
+
+//        std::cout << answer;
+// }
+void P432B()
+{
+    int n = 0;
+    std::cin >> n;
+
+    int home[n];
+    int away[n];
+    int ansewr_home[n];
+    int answer_away[n];
+    int homeCount[100001] = {0};
+
+    for (int i = 0; i < n; i++)
+    {
+        std::cin >> home[i] >> away[i];
+        ansewr_home[i] = 0;
+        answer_away[i] = 0;
+        homeCount[home[i]]++;
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        // 홈 경기: n-1번 (나머지 모든 팀과)
+        ansewr_home[i] += (n - 1);
+
+        // 어웨이 경기: 상대 홈색이 내 어웨이색과 같으면 홈킷, 아니면 어웨이킷
+        int conflict = homeCount[away[i]];
+        // 단, 내 홈색과 내 어웨이색이 같은 경우는 없으므로 자기 자신은 제외 불필요
+        ansewr_home[i] += conflict;
+        answer_away[i] += (n - 1 - conflict);
+    }
+
+    for (int i = 0; i < n; i++)
+        std::cout << ansewr_home[i] << " " << answer_away[i] << "\n";
+}
+
 int main()
 {
-    P492B();
+    P432B();
     return 0;
 }
